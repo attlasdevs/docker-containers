@@ -22,6 +22,17 @@ services:
       - './app/${PROJECT_DIR}/:/usr/src/app'
     user: '${LOCAL_USER}:${LOCAL_USER}'
     privileged: true
+  phpmyadmin:
+    image: phpmyadmin
+    expose:
+      - "${PHPMYADMIN_PORT}"
+    ports:
+      - "${PHPMYADMIN_PORT}:80"
+    environment:
+      - PMA_HOST=database
+      - PMA_PORT=3306
+      - MYSQL_ROOT_PASSWORD=${DATABASE_ROOT_PSW}
+      - MYSQL_USER=${DATABASE_USER}
   nginx: 
     image: nginx:1.23.0-alpine
     restart: on-failure
